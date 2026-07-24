@@ -1,0 +1,1 @@
+# devsynt-ai-internship-aiman
