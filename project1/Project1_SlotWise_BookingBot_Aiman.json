@@ -1,0 +1,330 @@
+{
+  "name": "Project1_SlotWise_BookingBot_Aiman",
+  "nodes": [
+    {
+      "parameters": {
+        "guildIds": "={{ [\"1535980952709242920\"] }}",
+        "pattern": "regex",
+        "value": ".*",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-discord-trigger.discordTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "59b3b6c3-8ad8-4736-a363-d9a87ef63eee",
+      "name": "Discord Trigger",
+      "credentials": {
+        "discordBotTriggerApi": {
+          "id": "wIyfb5XpCQX3s9Jg",
+          "name": "Discord Bot Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.content }}",
+        "options": {
+          "systemMessage": "You are SlotWise, a professional booking assistant for a restaurant/parlour, chatting with users on Discord.\n\nGOAL: Guide the user through a booking in this exact order — never skip a step, one question per turn.\n\n1. If this is the first message: greet briefly and ask whether they want to book a table (restaurant) or an appointment (parlour).\n2. Ask the relevant detail: party size/occasion for a table, or service type (haircut/facial/manicure) for an appointment.\n3. Ask their preferred day and time.\n4. Offer exactly 3 realistic mock slots near their preference (e.g. Today 6:00 PM / Today 7:30 PM / Tomorrow 12:00 PM).\n5. On their choice, confirm with a clean summary (service, date, time), end with \"You're all set! ✅\", then on a new line output:\n[BOOKING_CONFIRMED: service=<service>, date=<date>, time=<time>]\n\nOFF-SCRIPT HANDLING: If the message is unrelated to booking (pricing negotiation, complaint, unclear request), respond warmly that you're connecting them with the team, then on a new line output:\n[HANDOFF: reason=<brief reason>]\n\nSTYLE: Concise, warm, professional — 1–2 sentences per reply, no fluff, no repeating information already confirmed. Always use conversation context; never restart the flow mid-conversation.\n\nOnly emit [BOOKING_CONFIRMED...] or [HANDOFF...] exactly when those conditions are met — never otherwise, and never explain the tags to the user."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "95efeef8-e1f0-4a4c-a6c1-2b973673835f",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        80,
+        208
+      ],
+      "id": "58563345-85b0-408f-a9d4-840617a403e5",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "ke3CkvnATmnsISIW",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.authorId }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        224,
+        208
+      ],
+      "id": "870d7cdd-d830-43da-9ad6-2b757cc854ee",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "guildId": {
+          "__rl": true,
+          "value": "1535980952709242920",
+          "mode": "list",
+          "cachedResultName": "SlotWise Test Server",
+          "cachedResultUrl": "https://discord.com/channels/1535980952709242920"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $('Discord Trigger').item.json.channelId }}",
+          "mode": "id"
+        },
+        "content": "={{ $json.output }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        560,
+        0
+      ],
+      "id": "0e02d071-94f8-4344-8f13-d01aeb3303a3",
+      "name": "Send a message",
+      "webhookId": "26527d94-cfca-4cab-88ec-2539b988206f",
+      "credentials": {
+        "discordBotApi": {
+          "id": "1p50tn7K32vJpeBN",
+          "name": "Discord Bot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "bd455b52-1482-4d91-b09d-ca060600ea6c",
+              "leftValue": "={{ $json.content }}",
+              "rightValue": "[BOOKING_CONFIRMED",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        768,
+        0
+      ],
+      "id": "1035206f-ccd1-4eb7-8c4f-83bfc62ac7e3",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1nt5TL-TFawYWjDMmIHt4ytkeW7l8NHYOCLRWrL2AXAo",
+          "mode": "list",
+          "cachedResultName": "SlotWise Bookings",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1nt5TL-TFawYWjDMmIHt4ytkeW7l8NHYOCLRWrL2AXAo/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Bookings",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1nt5TL-TFawYWjDMmIHt4ytkeW7l8NHYOCLRWrL2AXAo/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Username": "={{ $('Discord Trigger').item.json.authorName }}",
+            "Service": "={{ $json.content }}",
+            "Date": "=",
+            "Time": "=",
+            "Timestamp": "={{ $now }}"
+          },
+          "matchingColumns": [
+            "SlotWise Bookings"
+          ],
+          "schema": [
+            {
+              "id": "Username",
+              "displayName": "Username",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Service",
+              "displayName": "Service",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Time",
+              "displayName": "Time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        976,
+        -48
+      ],
+      "id": "5cdc5333-8fd7-4e9f-b973-0b1cc6e04716",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleApi": {
+          "id": "3D9BfXntpcV6WaFO",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Discord Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "4bb236f5-df35-40e2-8242-f7df316d0f36",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "252c45fe45457455aa812e397d9fddd87fefd45ca047ccf7f7e1eddae8d33017"
+  },
+  "nodeGroups": [],
+  "id": "Bg64JPGxX8Dk1amL",
+  "tags": []
+}
