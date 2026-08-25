@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Aiman Imtiaz Ranjha  learning showcase for LangChain and LangGraph fundamentals.">
+  <title>LangChain + LangGraph Fundamentals | Aiman Imtiaz Ranjha</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-orb hero-orb-one"></div>
+  <div class="hero-orb hero-orb-two"></div>
+
+  <div class="hero-inner">
+    <p class="eyebrow">PROJECT 2 · PHASE 1</p>
+    <h1>LangChain + LangGraph<br><span>Fundamentals</span></h1>
+    <p class="hero-subtitle">My Learning Showcase</p>
+
+    <div class="identity">
+      <strong>Aiman Imtiaz Ranjha</strong>
+      <span>DevSynt AI Engineer Internship</span>
+      <span>Mentor: Afnan Shoukat</span>
+    </div>
+
+    <p class="hero-description">
+     
+    </p>
+  </div>
+</header>
+
+<main class="page">
+
+  <section class="intro-strip">
+    <div>
+       
+        <h2>Learning Showcase</h2>
+    </div>
+    <p>
+      This page contains the main concepts I learned while studying
+      LangChain and LangGraph Fundamentals.
+    </p>
+  </section>
+
+  <!-- 01 -->
+  <section class="section-card">
+    <div class="section-number">01</div>
+    <div class="section-main">
+      <div class="section-heading">
+        <div>
+          <p class="kicker">LANGCHAIN BASICS</p>
+          <h2>What is LangChain?</h2>
+        </div>
+      </div>
+
+      <p>
+        <strong>LangChain</strong> is a framework that provides reusable building
+        blocks for working with language models. Instead of calling an LLM API
+        directly every time, LangChain lets you create reusable components that
+        work together, such as prompt templates, chains, and output parsers.
+      </p>
+
+      <div class="note">
+        <strong>Why it matters</strong>
+        <p>
+          When you call an LLM API directly, you may write the same prompts
+          repeatedly and receive unstructured text. LangChain provides reusable
+          templates, structured outputs, and ways to connect multiple steps.
+        </p>
+      </div>
+
+      <h3>The problem LangChain helps solve</h3>
+      <div class="compare-grid">
+        <div class="compare-card muted-card">
+          <div class="card-label">WITHOUT A FRAMEWORK</div>
+          <h4>Direct LLM call</h4>
+          <div class="flow horizontal">
+            <div class="flow-node">Prompt</div>
+            <span class="flow-line"></span>
+            <div class="flow-node">LLM</div>
+            <span class="flow-line"></span>
+            <div class="flow-node">Raw text</div>
+          </div>
+          <ul>
+            <li>Manual prompts each time</li>
+            <li>Unstructured output</li>
+            <li>Harder to reuse</li>
+          </ul>
+        </div>
+
+        <div class="compare-card accent-card">
+          <div class="card-label">WITH LANGCHAIN</div>
+          <h4>Reusable workflow</h4>
+          <div class="flow horizontal">
+            <div class="flow-node">Prompt template</div>
+            <span class="flow-line"></span>
+            <div class="flow-node">LLM</div>
+            <span class="flow-line"></span>
+            <div class="flow-node">Parser</div>
+          </div>
+          <ul>
+            <li>Reusable templates</li>
+            <li>Structured output</li>
+            <li>Easy to connect steps</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section class="section-card">
+    <div class="section-number">02</div>
+    <div class="section-main">
+      <p class="kicker">CHAINS</p>
+      <h2>Chains &amp; LCEL</h2>
+      <p>
+        A <strong>chain</strong> is a connected sequence of steps. For example:
+        prompt → LLM → parser. Instead of running each part separately, a chain
+        connects them so the output of one step becomes the input for the next.
+      </p>
+
+      <div class="note">
+        <strong>My understanding</strong>
+        <p>
+          I think of a chain like a kitchen preparation line:
+          raw ingredients → chop → cook → serve. Each step passes its output
+          to the next step.
+        </p>
+      </div>
+
+      <h3>LCEL: LangChain Expression Language</h3>
+      <p>
+        LCEL is LangChain's way of connecting components using the pipe operator
+        <code>|</code>.
+      </p>
+
+      <div class="code-block"><code>prompt | llm | parser</code></div>
+
+      <div class="three-columns">
+        <div><strong>prompt</strong><span>PromptTemplate with variables</span></div>
+        <div><strong>llm</strong><span>Language model such as OpenAI or Gemini</span></div>
+        <div><strong>parser</strong><span>Converts the output into a usable format</span></div>
+      </div>
+
+      <p>
+        The pipe operator means that the output of the left side is passed as
+        input to the right side.
+      </p>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section class="section-card">
+    <div class="section-number">03</div>
+    <div class="section-main">
+      <p class="kicker">PROMPTS</p>
+      <h2>Prompt Templates</h2>
+      <p>
+        A <strong>prompt template</strong> is a reusable prompt with placeholders
+        for variables. Instead of writing the same prompt manually each time,
+        you write it once and fill in different values.
+      </p>
+
+      <h3>Simple example</h3>
+      <div class="code-block"><code>"What is the capital of {country}?"</code></div>
+
+      <h3>Usage</h3>
+      <table>
+        <thead>
+          <tr><th>Variable</th><th>Result</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>country = "Pakistan"</code></td><td>"What is the capital of Pakistan?"</td></tr>
+          <tr><td><code>country = "France"</code></td><td>"What is the capital of France?"</td></tr>
+        </tbody>
+      </table>
+
+      <div class="note">
+        <strong>Why it matters</strong>
+        <p>
+          The prompt is written once and can be reused with different variables
+          without repeating the same text.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section class="section-card">
+    <div class="section-number">04</div>
+    <div class="section-main">
+      <p class="kicker">STRUCTURED OUTPUT</p>
+      <h2>Output Parsers</h2>
+      <p>
+        By default, an LLM returns free-flowing text. An <strong>output parser</strong>
+        converts or interprets the LLM's response into a structured format so
+        that a program can process the result more reliably.
+      </p>
+
+      <h3>Structured vs. unstructured</h3>
+      <div class="compare-grid">
+        <div class="compare-card muted-card">
+          <div class="card-label">PLAIN TEXT</div>
+          <h4>Harder for code to process</h4>
+          <div class="code-block small"><code>"The product costs $20 and has a rating of 5 stars."</code></div>
+          <p>Your code has to figure out where the price and rating are.</p>
+        </div>
+        <div class="compare-card accent-card">
+          <div class="card-label">STRUCTURED JSON</div>
+          <h4>Easier for code to process</h4>
+          <div class="code-block small"><code>{<br>&nbsp;&nbsp;"price": 20,<br>&nbsp;&nbsp;"rating": 5<br>}</code></div>
+          <p>Your code can directly access <code>data["price"]</code>.</p>
+        </div>
+      </div>
+
+      <div class="note">
+        <strong>Common parsers</strong>
+        <p>
+          StrOutputParser for plain text, JsonOutputParser for JSON, and
+          structured output using Pydantic models.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section class="section-card">
+    <div class="section-number">05</div>
+    <div class="section-main">
+      <p class="kicker">CONVERSATIONS</p>
+      <h2>Memory &amp; Conversation History</h2>
+      <p>
+        By default, each LLM call is separate. The model does not automatically
+        remember previous messages. <strong>Memory</strong> means keeping track
+        of conversation history and feeding it back into the model so it can
+        refer to earlier context.
+      </p>
+
+      <h3>How memory works</h3>
+      <div class="process">
+        <div class="process-step"><b>01</b><span>User message</span></div>
+        <div class="process-connector"></div>
+        <div class="process-step"><b>02</b><span>Conversation history</span></div>
+        <div class="process-connector"></div>
+        <div class="process-step"><b>03</b><span>LLM</span></div>
+        <div class="process-connector"></div>
+        <div class="process-step"><b>04</b><span>Response</span></div>
+        <div class="process-connector"></div>
+        <div class="process-step"><b>05</b><span>History updated</span></div>
+      </div>
+
+      <div class="note">
+        <strong>Why it matters</strong>
+        <p>Conversational apps need context. Without memory, every question is answered in isolation.</p>
+      </div>
+
+      <div class="example-grid">
+        <div>
+          <span class="example-label">WITHOUT MEMORY</span>
+          <p>User: "My name is Aiman"</p>
+          <p>LLM: "Nice to meet you, Aiman!"</p>
+          <p>User: "What's my name?"</p>
+          <p>LLM: "I don't know."</p>
+        </div>
+        <div>
+          <span class="example-label">WITH MEMORY</span>
+          <p>User: "My name is Aiman"</p>
+          <p>LLM: "Nice to meet you, Aiman!"</p>
+          <p>User: "What's my name?"</p>
+          <p>LLM: "Your name is Aiman."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section class="section-card">
+    <div class="section-number">06</div>
+    <div class="section-main">
+      <p class="kicker">TOOLS</p>
+      <h2>Tool Calling</h2>
+      <p>
+        <strong>Tool calling</strong> means giving an LLM the ability to request
+        external functions instead of guessing answers. The model decides when
+        a tool is useful and what arguments to pass to it.
+      </p>
+
+      <h3>Example: Calculator tool</h3>
+      <div class="process tool-process">
+        <div class="process-step"><b>01</b><span>User asks: 125 × 48</span></div>
+        <div class="process-connector"></div>
+        <div class="process-step"><b>02</b><span>LLM chooses calculator</span></div>
+        <div class="process-connector"></div>
+        <div class="process-step"><b>03</b><span>calculate(125 * 48)</span></div>
+        <div class="process-connector"></div>
+        <div class="process-step"><b>04</b><span>Tool returns 6000</span></div>
+        <div class="process-connector"></div>
+        <div class="process-step"><b>05</b><span>LLM gives the answer</span></div>
+      </div>
+
+      <h3>Key concepts</h3>
+      <div class="three-columns">
+        <div><strong>Tool schema</strong><span>Describes what the tool does and what arguments it accepts.</span></div>
+        <div><strong>Tool execution</strong><span>The actual function runs with the arguments provided by the LLM.</span></div>
+        <div><strong>Result returning</strong><span>The result goes back to the LLM, which forms the final response.</span></div>
+      </div>
+
+      <div class="note">
+        <strong>Why it matters</strong>
+        <p>
+          Some tasks need real data or computation. Tool calling lets the model
+          request help instead of guessing.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section class="section-card">
+    <div class="section-number">07</div>
+    <div class="section-main">
+      <p class="kicker">LANGGRAPH</p>
+      <h2>What is LangGraph?</h2>
+      <p>
+        <strong>LangGraph</strong> is a framework for building graph-based
+        workflows. While a chain follows a fixed sequence, a graph lets the
+        workflow take different paths depending on what happened earlier.
+      </p>
+
+      <h3>Chain vs. graph</h3>
+      <div class="compare-grid">
+        <div class="compare-card muted-card">
+          <div class="card-label">CHAIN · FIXED</div>
+          <div class="diagram flow-chain">
+            <span>A</span><i></i><span>B</span><i></i><span>C</span><i></i><span>D</span>
+          </div>
+          <p>Always follows the same sequence.</p>
+        </div>
+
+        <div class="compare-card accent-card">
+          <div class="card-label">GRAPH · FLEXIBLE</div>
+          <div class="graph-mini">
+            <span class="g-node top">A</span>
+            <span class="g-line down"></span>
+            <span class="g-node middle">Decision</span>
+            <span class="g-branch left"></span>
+            <span class="g-branch right"></span>
+            <span class="g-node bottom-left">B</span>
+            <span class="g-node bottom-right">C</span>
+          </div>
+          <p>Paths can depend on decisions and state.</p>
+        </div>
+      </div>
+
+      <div class="note">
+        <strong>When to use graphs</strong>
+        <p>
+          Use graphs when a workflow needs decisions, repeated steps, or
+          different paths based on conditions.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 -->
+  <section class="section-card">
+    <div class="section-number">08</div>
+    <div class="section-main">
+      <p class="kicker">COMPARISON</p>
+      <h2>Chain vs. Agent</h2>
+
+      <div class="compare-grid">
+        <div class="compare-card muted-card">
+          <div class="card-label">CHAIN</div>
+          <h4>Fixed and predictable</h4>
+          <ul>
+            <li>Predefined flow</li>
+            <li>Predictable sequence</li>
+            <li>Steps generally follow a defined order</li>
+            <li>No decision-making between steps</li>
+          </ul>
+        </div>
+
+        <div class="compare-card accent-card">
+          <div class="card-label">AGENT</div>
+          <h4>Flexible and decision-based</h4>
+          <ul>
+            <li>Can decide what to do next</li>
+            <li>Can choose between actions or tools</li>
+            <li>Can follow different paths</li>
+            <li>Makes decisions based on context</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="analogy">
+        <div><strong>Chain</strong><span>Like a conveyor belt: everything goes through the same stations in order.</span></div>
+        <div><strong>Agent</strong><span>Like a manager: looks at the task and decides which worker should handle it next.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 -->
+  <section class="section-card">
+    <div class="section-number">09</div>
+    <div class="section-main">
+      <p class="kicker">GRAPH BUILDING BLOCKS</p>
+      <h2>LangGraph Core Concepts</h2>
+
+      <div class="concept-grid">
+        <div class="concept-card">
+          <span class="concept-index">A</span>
+          <h4>Node</h4>
+          <p>One step or unit of work in the graph. A node is a function that processes the current state and returns an update.</p>
+        </div>
+        <div class="concept-card">
+          <span class="concept-index">B</span>
+          <h4>Edge</h4>
+          <p>A connection showing where execution goes next. It determines which node runs after the current one.</p>
+        </div>
+        <div class="concept-card">
+          <span class="concept-index">C</span>
+          <h4>Conditional Edge</h4>
+          <p>A decision based connection. The next node depends on a condition like checking if a value is true or false.</p>
+        </div>
+        <div class="concept-card">
+          <span class="concept-index">D</span>
+          <h4>State</h4>
+          <p>The information carried through and updated during graph execution. State is passed from node to node and can be modified along the way.</p>
+        </div>
+      </div>
+
+      <h3>Visual example</h3>
+      <div class="graph-diagram">
+        <div class="graph-row">
+          <div class="graph-box start">START</div>
+        </div>
+        <div class="graph-arrow"></div>
+        <div class="graph-row">
+          <div class="graph-box">CHECK ORDER</div>
+        </div>
+        <div class="graph-arrow"></div>
+        <div class="graph-row">
+          <div class="graph-box decision">CONDITION?</div>
+        </div>
+        <div class="branch-row">
+          <div class="branch">
+            <span class="branch-label">YES</span>
+            <div class="branch-line"></div>
+            <div class="graph-box">PROCESS</div>
+          </div>
+          <div class="branch">
+            <span class="branch-label">NO</span>
+            <div class="branch-line"></div>
+            <div class="graph-box">NOTIFY</div>
+          </div>
+        </div>
+        <div class="merge-line"></div>
+        <div class="graph-row">
+          <div class="graph-box end">END</div>
+        </div>
+      </div>
+
+      <div class="definition-list">
+        <p><strong>START:</strong> Entry point.</p>
+        <p><strong>Check Order:</strong> A node that checks the order status.</p>
+        <p><strong>Condition:</strong> A decision that determines which path is taken.</p>
+        <p><strong>Process / Notify:</strong> Different nodes based on the condition.</p>
+        <p><strong>END:</strong> Exit point.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section class="section-card">
+    <div class="section-number">10</div>
+    <div class="section-main">
+      <p class="kicker">WHY GRAPHS?</p>
+      <h2>Why Use Graphs?</h2>
+      <p>Graphs are useful when a workflow needs:</p>
+
+      <div class="feature-grid">
+        <div><strong>Different paths</strong><span>Handle different cases differently.</span></div>
+        <div><strong>Decisions</strong><span>Let the LLM or code decide what to do next.</span></div>
+        <div><strong>State management</strong><span>Track and update shared information.</span></div>
+        <div><strong>Repeated steps</strong><span>Loop back when needed, such as retry logic.</span></div>
+      </div>
+
+      <div class="note">
+        <strong>Example</strong>
+        <p>
+          A customer support bot might check whether an issue is billing or
+          technical. Billing issues can go to a billing agent while technical
+          issues go to a technical support agent. This is graph-style logic
+          because the next step depends on the situation.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section class="section-card">
+    <div class="section-number">11</div>
+    <div class="section-main">
+      <p class="kicker">ORCHESTRATION</p>
+      <h2>Orchestrator Agents</h2>
+      <p>
+        An <strong>orchestrator agent</strong>, also called a router receives a
+        task and decides which specialized agent or step should handle it.
+        The orchestrator coordinates the work rather than doing every task itself.
+      </p>
+
+      <h3>The manager analogy</h3>
+      <div class="note">
+        <strong>Think of an orchestrator like a manager</strong>
+        <p>
+          A manager does not clean the data or write every report themselves.
+          They look at the task and assign it to the right team member.
+        </p>
+      </div>
+
+      <h3>Visual example</h3>
+      <div class="orchestrator">
+        <div class="orch-node main">USER TASK</div>
+        <div class="orch-arrow"></div>
+        <div class="orch-node main">ORCHESTRATOR</div>
+        <div class="orch-split">
+          <div class="orch-agent"><span>A</span>Specialized agent</div>
+          <div class="orch-agent"><span>B</span>Specialized agent</div>
+          <div class="orch-agent"><span>C</span>Specialized agent</div>
+        </div>
+        <div class="orch-arrow"></div>
+        <div class="orch-node result">FINAL RESULT</div>
+      </div>
+
+      <h3>Key concepts</h3>
+      <div class="feature-grid">
+        <div><strong>Routing</strong><span>The orchestrator decides which agent to use.</span></div>
+        <div><strong>Specialization</strong><span>Each agent focuses on a specific task.</span></div>
+        <div><strong>Coordination</strong><span>The orchestrator manages communication between agents.</span></div>
+        <div><strong>Shared state</strong><span>Agents can access and update shared information.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section class="section-card featured-section">
+    <div class="section-number">12</div>
+    <div class="section-main">
+      <p class="kicker">UPCOMING PROJECT</p>
+      <h2>Why Our Project Needs an Orchestrator</h2>
+      <p>
+        Our next mini-project will receive raw data. The challenge is that
+        <strong>what should happen to the data depends on what the data is.</strong>
+      </p>
+
+      <div class="route">
+        <div class="route-step"><b>01</b><strong>Raw Data</strong><span>Input received</span></div>
+        <div class="route-arrow">→</div>
+        <div class="route-step"><b>02</b><strong>Orchestrator</strong><span>Determines the data type</span></div>
+        <div class="route-arrow">→</div>
+        <div class="route-step"><b>03</b><strong>Specialized Agent</strong><span>Processes the data</span></div>
+        <div class="route-arrow">→</div>
+        <div class="route-step"><b>04</b><strong>Result</strong><span>Processed output</span></div>
+      </div>
+
+      <div class="example-list">
+        <p><strong>Customer feedback</strong><span>→ sentiment analysis agent</span></p>
+        <p><strong>Transaction data</strong><span>→ fraud detection agent</span></p>
+        <p><strong>Image data</strong><span>→ image processing agent</span></p>
+      </div>
+
+      <h3>Why this pattern is useful</h3>
+      <div class="feature-grid">
+        <div><strong>Specialization</strong><span>Each agent can focus on one task.</span></div>
+        <div><strong>Flexibility</strong><span>New agents can be added as needs grow.</span></div>
+        <div><strong>Efficiency</strong><span>Only relevant context is sent to the selected agent.</span></div>
+        <div><strong>Scalability</strong><span>The workflow can handle more complex tasks.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13 -->
+  <section class="section-card takeaways">
+    <div class="section-number">13</div>
+    <div class="section-main">
+      <p class="kicker">SUMMARY</p>
+      <h2>Key Takeaways</h2>
+
+      <div class="takeaway-grid">
+        <div><strong>LangChain</strong><span>Reusable building blocks for LLM applications.</span></div>
+        <div><strong>Chain</strong><span>Connected sequence of steps using LCEL and the pipe operator.</span></div>
+        <div><strong>Prompt Template</strong><span>Reusable prompt with variable placeholders.</span></div>
+        <div><strong>Output Parser</strong><span>Converts LLM output into a structured format.</span></div>
+        <div><strong>Memory</strong><span>Keeps relevant conversation context for multi-turn interactions.</span></div>
+        <div><strong>Tool Calling</strong><span>Lets an LLM request external functions when needed.</span></div>
+        <div><strong>LangGraph</strong><span>Framework for graph-based workflows with decision-making.</span></div>
+        <div><strong>Node</strong><span>A single step or unit of work in a graph.</span></div>
+        <div><strong>Edge</strong><span>A connection showing where execution goes next.</span></div>
+        <div><strong>Conditional Edge</strong><span>A decision-based connection between graph steps.</span></div>
+        <div><strong>State</strong><span>Information carried and updated during graph execution.</span></div>
+        <div><strong>Orchestrator</strong><span>Routes work to the appropriate specialized agent or step.</span></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div>
+    <strong>Aiman Imtiaz Ranjha</strong>
+    <span>DevSynt AI Engineer Internship · LangChain + LangGraph Fundamentals</span>
+  </div>
+  <time datetime="2026-08-25">25 August 2026</time>
+</footer>
+
+</body>
+</html>
