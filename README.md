@@ -1,4 +1,4 @@
-#  DevSynt AI Automation Internship – Summer 2026
+#  DevSynt AI Engineer Internship – Summer 2026
 
 **Name:** Aiman Imtiaz
 
