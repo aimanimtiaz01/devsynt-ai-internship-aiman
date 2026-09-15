@@ -1,7 +1,7 @@
 # Phase 3: Dynamic Multi-Agent Production Pipeline
 
 ## Project Overview
-This production-grade system utilizes LangGraph and the Groq API (openai/gpt-oss-20b) to dynamically process, analyze, and visualize data across multiple business domains. The pipeline adapts its metrics automatically without hardcoded rules.
+This multi-agent system utilizes LangGraph and the Groq API to dynamically process, analyze, and visualize data across multiple business domains. The pipeline adapts its metrics automatically without hardcoded rules.
 
 ## Architecture & Flow Diagram
 1. **DomainConfigAgent:** Analyzes dataset columns and file context to identify the business domain.
