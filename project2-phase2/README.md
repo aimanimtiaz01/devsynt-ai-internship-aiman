@@ -46,7 +46,7 @@ Handled in `agents/cleaner.py`. This agent handles data friction by resolving wi
 ![Cleaning Result](assets/cleaning-result.png)
 
 ### Step 3: Analysis & LLM Summarization (Analyzer Agent)
-Handled in `agents/analyzer.py`. This agent performs exploratory data analysis—calculating total sales, profit, regional distribution, top products, and true Average Order Value using unique Order IDs. It then connects to the Groq API (using the openai/gpt-oss-20b model) via LangChain to generate a concise, grounded executive summary based strictly on the computed numbers.
+Handled in `agents/analyzer.py`. This agent performs exploratory data analysis calculating total sales, profit, regional distribution, top products, and true Average Order Value using unique Order IDs. It then connects to the Groq API (using the openai/gpt-oss-20b model) via LangChain to generate a concise, grounded executive summary based strictly on the computed numbers.
 
 *Terminal Output — LLM Summary & Pipeline Completion:*  
 ![Analysis Output](assets/analysis-output.png)
