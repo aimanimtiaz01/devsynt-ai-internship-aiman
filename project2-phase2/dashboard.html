@@ -1,0 +1,102 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Retail Dashboard</title>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <style>
+            body { font-family: 'Inter', sans-serif; margin: 0; background: #f3f4f6; color: #1f2937; }
+            .header { background: linear-gradient(135deg, #1e3a8a 0%, #312e81 100%); color: white; padding: 30px 40px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+            .header h1 { margin: 0; font-size: 24px; font-weight: 600; letter-spacing: 0.5px; }
+            .container { padding: 40px; max-width: 1400px; margin: 0 auto; }
+            .card { background: white; padding: 25px; border-radius: 12px; margin-bottom: 24px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #e5e7eb; }
+            .card h2 { margin-top: 0; font-size: 16px; color: #4b5563; text-transform: uppercase; letter-spacing: 0.5px; }
+            .summary-text { font-size: 16px; line-height: 1.6; color: #374151; }
+            .metrics { display: flex; gap: 24px; margin-bottom: 24px; }
+            .metric { background: white; padding: 25px; border-radius: 12px; flex: 1; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #e5e7eb; border-left: 5px solid #3b82f6; }
+            .metric h3 { color: #6b7280; margin: 0 0 10px 0; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
+            .metric h2 { margin: 0; font-size: 28px; color: #111827; font-weight: 700; }
+            .charts { display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 24px; }
+            .chart-container { background: white; padding: 20px; border-radius: 12px; flex: 1; min-width: 450px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #e5e7eb; }
+            table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+            th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #e5e7eb; font-size: 14px; }
+            th { background-color: #f9fafb; font-weight: 600; color: #4b5563; text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px; }
+            tr:hover { background-color: #f9fafb; }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Retail Data Pipeline Dashboard</h1>
+        </div>
+        <div class="container">
+            <div class="card">
+                <h2>AI Executive Summary</h2>
+                <p class="summary-text">Total sales reached $2,297,200.86, generating a profit of $286,397.02 from 37,873 units sold, which averages to $458.61 per order. The high average order value of $458.61 underscores the strong value proposition driving each transaction.</p>
+            </div>
+
+            <div class="metrics">
+                <div class="metric" style="border-left-color: #3b82f6;">
+                    <h3>Total Sales</h3>
+                    <h2>$2,297,200.86</h2>
+                </div>
+                <div class="metric" style="border-left-color: #10b981;">
+                    <h3>Total Profit</h3>
+                    <h2>$286,397.02</h2>
+                </div>
+                <div class="metric" style="border-left-color: #8b5cf6;">
+                    <h3>Avg Order Value</h3>
+                    <h2>$458.61</h2>
+                </div>
+            </div>
+            
+            <div class="charts">
+                <div class="chart-container" id="region-chart"></div>
+                <div class="chart-container" id="category-chart"></div>
+            </div>
+
+            <div class="card">
+                <h2>Top 5 Products by Sales</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th style="text-align: right;">Total Sales</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Canon imageCLASS 2200 Advanced Copier</td><td style='text-align: right;'>$61,599.82</td></tr><tr><td>Fellowes PB500 Electric Punch Plastic Comb Binding Machine with Manual Bind</td><td style='text-align: right;'>$27,453.38</td></tr><tr><td>Cisco TelePresence System EX90 Videoconferencing Unit</td><td style='text-align: right;'>$22,638.48</td></tr><tr><td>HON 5400 Series Task Chairs for Big and Tall</td><td style='text-align: right;'>$21,870.58</td></tr><tr><td>GBC DocuBind TL300 Electric Binding System</td><td style='text-align: right;'>$19,823.48</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <script>
+            var regionData = {"Central": 501239.89, "East": 678781.24, "South": 391721.91, "West": 725457.82};
+            var categoryData = {"Furniture": 741999.8, "Office Supplies": 719047.03, "Technology": 836154.03};
+            
+            var layoutConfig = {
+                font: { family: 'Inter, sans-serif' },
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                margin: {t: 40, b: 40, l: 40, r: 20}
+            };
+            
+            Plotly.newPlot('region-chart', [{
+                x: Object.keys(regionData),
+                y: Object.values(regionData),
+                type: 'bar',
+                marker: {color: '#3b82f6'}
+            }], {...layoutConfig, title: 'Sales by Region'});
+            
+            Plotly.newPlot('category-chart', [{
+                x: Object.keys(categoryData),
+                y: Object.values(categoryData),
+                type: 'bar',
+                marker: {color: '#8b5cf6'}
+            }], {...layoutConfig, title: 'Sales by Category'});
+        </script>
+    </body>
+    </html>
+    
