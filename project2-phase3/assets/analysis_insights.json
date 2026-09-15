@@ -1,0 +1,24 @@
+{
+    "domain": "E-commerce Sales",
+    "total_records": 2095,
+    "total_primary_metric": 1212825.47,
+    "primary_metric_name": "Amount",
+    "top_items": {
+        "Set": 648718.27,
+        "kurta": 328242.34,
+        "Western Dress": 138834.2,
+        "Top": 78872.66,
+        "Ethnic Dress": 11428.0
+    },
+    "category_col_name": "Category",
+    "distribution_chart": {
+        "Set": 648718.27,
+        "kurta": 328242.34,
+        "Western Dress": 138834.2,
+        "Top": 78872.66,
+        "Ethnic Dress": 11428.0,
+        "Blouse": 3925.0,
+        "Saree": 2428.0,
+        "Bottom": 377.0
+    }
+}

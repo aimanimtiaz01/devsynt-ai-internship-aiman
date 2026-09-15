@@ -1,0 +1,75 @@
+
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <title>E-commerce Sales Dashboard</title>
+                <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+                <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+                <style>
+                    body { font-family: 'Inter', sans-serif; margin: 0; background: #f3f4f6; color: #1f2937; }
+                    .header { background: linear-gradient(135deg, #0f172a 0%, #334155 100%); color: white; padding: 30px 40px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+                    .header h1 { margin: 0; font-size: 24px; font-weight: 600; }
+                    .container { padding: 40px; max-width: 1400px; margin: 0 auto; }
+                    .card { background: white; padding: 25px; border-radius: 12px; margin-bottom: 24px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e5e7eb; }
+                    .metrics { display: flex; gap: 24px; margin-bottom: 24px; }
+                    .metric { background: white; padding: 25px; border-radius: 12px; flex: 1; border-left: 5px solid #3b82f6; }
+                    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+                    th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #e5e7eb; }
+                    th { background-color: #f9fafb; }
+                    .chart-container { background: white; padding: 20px; border-radius: 12px; }
+                </style>
+            </head>
+            <body>
+                <div class="header">
+                    <h1>E-commerce Sales Data Dashboard</h1>
+                </div>
+                <div class="container">
+                    <div class="card">
+                        <h2>AI Executive Summary</h2>
+                        <p>The E‑commerce Sales dataset comprises 2,095 records, with a cumulative metric amount of $1,212,825.47. This equates to an average value of roughly $578.91 per record, indicating a substantial volume of transactions.</p>
+                    </div>
+                    <div class="metrics">
+                        <div class="metric">
+                            <h3>Total Records</h3>
+                            <h2>2095</h2>
+                        </div>
+                        <div class="metric" style="border-left-color: #10b981;">
+                            <h3>Total Amount</h3>
+                            <h2>1,212,825.47</h2>
+                        </div>
+                    </div>
+                    <div class="chart-container" id="chart-amazon_sale_report" style="margin-bottom: 24px;"></div>
+                    <div class="card">
+                        <h2>Top 5 by Amount</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th style="text-align: right;">Total Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Set</td><td style='text-align: right;'>648,718.27</td></tr><tr><td>kurta</td><td style='text-align: right;'>328,242.34</td></tr><tr><td>Western Dress</td><td style='text-align: right;'>138,834.20</td></tr><tr><td>Top</td><td style='text-align: right;'>78,872.66</td></tr><tr><td>Ethnic Dress</td><td style='text-align: right;'>11,428.00</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <script>
+                    var chartData = {"Set": 648718.27, "kurta": 328242.34, "Western Dress": 138834.2, "Top": 78872.66, "Ethnic Dress": 11428.0, "Blouse": 3925.0, "Saree": 2428.0, "Bottom": 377.0};
+                    Plotly.newPlot('chart-amazon_sale_report', [{
+                        x: Object.keys(chartData),
+                        y: Object.values(chartData),
+                        type: 'bar',
+                        marker: {color: '#3b82f6'}
+                    }], {
+                        font: { family: 'Inter, sans-serif' },
+                        paper_bgcolor: 'rgba(0,0,0,0)',
+                        plot_bgcolor: 'rgba(0,0,0,0)',
+                        margin: {t: 40, b: 80, l: 60, r: 20},
+                        title: 'Top 10 Category by Amount'
+                    });
+                </script>
+            </body>
+            </html>
+            

@@ -1,0 +1,75 @@
+
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <title>E-commerce Sales Dashboard</title>
+                <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+                <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+                <style>
+                    body { font-family: 'Inter', sans-serif; margin: 0; background: #f3f4f6; color: #1f2937; }
+                    .header { background: linear-gradient(135deg, #0f172a 0%, #334155 100%); color: white; padding: 30px 40px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+                    .header h1 { margin: 0; font-size: 24px; font-weight: 600; }
+                    .container { padding: 40px; max-width: 1400px; margin: 0 auto; }
+                    .card { background: white; padding: 25px; border-radius: 12px; margin-bottom: 24px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e5e7eb; }
+                    .metrics { display: flex; gap: 24px; margin-bottom: 24px; }
+                    .metric { background: white; padding: 25px; border-radius: 12px; flex: 1; border-left: 5px solid #3b82f6; }
+                    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+                    th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #e5e7eb; }
+                    th { background-color: #f9fafb; }
+                    .chart-container { background: white; padding: 20px; border-radius: 12px; }
+                </style>
+            </head>
+            <body>
+                <div class="header">
+                    <h1>E-commerce Sales Data Dashboard</h1>
+                </div>
+                <div class="container">
+                    <div class="card">
+                        <h2>AI Executive Summary</h2>
+                        <p>The dataset contains 1,000 records, with a total sales metric of $251,850.66. This equates to an average sales value of approximately $251.85 per record.</p>
+                    </div>
+                    <div class="metrics">
+                        <div class="metric">
+                            <h3>Total Records</h3>
+                            <h2>1000</h2>
+                        </div>
+                        <div class="metric" style="border-left-color: #10b981;">
+                            <h3>Total Price</h3>
+                            <h2>251,850.66</h2>
+                        </div>
+                    </div>
+                    <div class="chart-container" id="chart-online_retail" style="margin-bottom: 24px;"></div>
+                    <div class="card">
+                        <h2>Top 5 by Price</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Category_Name</th>
+                                    <th style="text-align: right;">Total Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Electronics</td><td style='text-align: right;'>53,622.67</td></tr><tr><td>Sports & Outdoors</td><td style='text-align: right;'>52,966.08</td></tr><tr><td>Books & Stationery</td><td style='text-align: right;'>50,386.77</td></tr><tr><td>Fashion</td><td style='text-align: right;'>48,428.57</td></tr><tr><td>Home & Living</td><td style='text-align: right;'>46,446.57</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <script>
+                    var chartData = {"Electronics": 53622.67, "Sports & Outdoors": 52966.08, "Books & Stationery": 50386.77, "Fashion": 48428.57, "Home & Living": 46446.57};
+                    Plotly.newPlot('chart-online_retail', [{
+                        x: Object.keys(chartData),
+                        y: Object.values(chartData),
+                        type: 'bar',
+                        marker: {color: '#3b82f6'}
+                    }], {
+                        font: { family: 'Inter, sans-serif' },
+                        paper_bgcolor: 'rgba(0,0,0,0)',
+                        plot_bgcolor: 'rgba(0,0,0,0)',
+                        margin: {t: 40, b: 80, l: 60, r: 20},
+                        title: 'Top 10 Category_Name by Price'
+                    });
+                </script>
+            </body>
+            </html>
+            
